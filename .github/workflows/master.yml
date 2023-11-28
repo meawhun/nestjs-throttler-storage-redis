@@ -27,9 +27,6 @@ jobs:
       - name: Set npm Config
         run: npm config set //registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}
 
-      - name: Log in to npm
-        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
-
       - name: Publish to NPM
         run: npm publish
         env:
