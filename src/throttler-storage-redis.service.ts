@@ -8,12 +8,13 @@ export class ThrottlerStorageRedisService implements ThrottlerStorageRedis, OnMo
   scriptSrc: string;
   redis: Redis | Cluster;
   disconnectRequired?: boolean;
+  prefix: string;
 
   constructor(redis?: Redis);
   constructor(cluster?: Cluster);
   constructor(options?: RedisOptions);
   constructor(url?: string);
-  constructor(redisOrOptions?: Redis | Cluster | RedisOptions | string) {
+  constructor(redisOrOptions?: Redis | Cluster | RedisOptions | string, prefix?: string) {
     if (redisOrOptions instanceof Redis || redisOrOptions instanceof Cluster) {
       this.redis = redisOrOptions;
     } else if (typeof redisOrOptions === 'string') {
@@ -24,6 +25,7 @@ export class ThrottlerStorageRedisService implements ThrottlerStorageRedis, OnMo
       this.disconnectRequired = true;
     }
 
+    this.prefix = prefix || ''; 
     this.scriptSrc = this.getScriptSrc();
   }
 
@@ -31,11 +33,13 @@ export class ThrottlerStorageRedisService implements ThrottlerStorageRedis, OnMo
     // Credits to wyattjoh for the fast implementation you see below.
     // https://github.com/wyattjoh/rate-limit-redis/blob/main/src/lib.ts
     return `
-      local totalHits = redis.call("INCR", KEYS[1])
-      local timeToExpire = redis.call("PTTL", KEYS[1])
+      local key = KEYS[1]
+      key = "${this.prefix}" .. key
+      local totalHits = redis.call("INCR", key)
+      local timeToExpire = redis.call("PTTL", key)
       if timeToExpire <= 0
         then
-          redis.call("PEXPIRE", KEYS[1], tonumber(ARGV[1]))
+          redis.call("PEXPIRE", key, tonumber(ARGV[1]))
           timeToExpire = tonumber(ARGV[1])
         end
       return { totalHits, timeToExpire }
