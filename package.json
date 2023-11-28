@@ -1,8 +1,8 @@
 {
   "name": "@meawhun/nestjs-throttler-storage-redis",
   "version": "0.0.2",
-  "description": "Redis storage provider for the @nestjs/throttler package",
-  "author": "",
+  "description": "Redis storage provider @nestjs/throttler package",
+  "author": "meawhun",
   "keywords": [
     "nestjs",
     "rate-limit",
@@ -116,18 +116,5 @@
     "*.{md,html,json,js}": [
       "prettier --write"
     ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/kkoomen/nestjs-throttler-storage-redis.git"
-  },
-  "bugs": {
-    "url": "https://github.com/kkoomen/nestjs-throttler-storage-redis/issues"
-  },
-  "homepage": "https://github.com/kkoomen/nestjs-throttler-storage-redis#readme"
+  }
 }
