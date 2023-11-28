@@ -1,6 +1,6 @@
 {
-  "name": "@meawhun/nestjs-throttler-storage-redis",
-  "version": "0.0.2",
+  "name": "nestjs-throttler-storage-redis-prefix",
+  "version": "0.0.6",
   "description": "Redis storage provider @nestjs/throttler package",
   "author": "meawhun",
   "keywords": [
