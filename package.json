@@ -1,8 +1,8 @@
 {
-  "name": "nestjs-throttler-storage-redis",
-  "version": "0.4.1",
+  "name": "@meawhun/nestjs-throttler-storage-redis",
+  "version": "0.0.1",
   "description": "Redis storage provider for the @nestjs/throttler package",
-  "author": "Kim 金可明 <koomen@pm.me>",
+  "author": "",
   "keywords": [
     "nestjs",
     "rate-limit",
