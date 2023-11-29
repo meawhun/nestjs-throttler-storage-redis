@@ -38,10 +38,10 @@ export class ThrottlerStorageRedisService implements ThrottlerStorageRedis, OnMo
       local key = KEYS[1]
       key = "${customPrefix}" .. key
       local totalHits = redis.call("INCR", key)
-      local timeToExpire = redis.call("TTL", key)
+      local timeToExpire = redis.call("PTTL", key)
       if timeToExpire <= 0
         then
-          redis.call("EXPIRE", key, tonumber(ARGV[1]))
+          redis.call("PEXPIRE", key, tonumber(ARGV[1]))
           timeToExpire = tonumber(ARGV[1])
         end
       return { totalHits, timeToExpire }
